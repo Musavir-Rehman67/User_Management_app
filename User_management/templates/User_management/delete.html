@@ -1,0 +1,12 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" 
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="{% static 'User_management/style.css' %}" rel="stylesheet">
+<div class="myform">
+    <form action="" method="post">
+    {% csrf_token %}
+        <h1>Are you sure you want to delete?</h1><br>
+        <input type="submit" class="btn btn-danger" value="yes">
+        <a href="/existing_user"><div class="btn btn-primary">Cancel</div></a>
+    </form>
+</div>

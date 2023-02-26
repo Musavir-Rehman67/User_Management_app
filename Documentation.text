@@ -1,0 +1,54 @@
+I did my project in django web framework which is based on python 
+I create a project named applied_informatics and in this project i create app named User_management
+I linked this app in my project in setting.py and urls.py
+First i create urls.py in my app in this file all my application urls are present and this apps url is present in project urls
+I create two models  in my app which are   
+    . one For Admin login named Admin_panel which has fields username,password and email and i added static method in this which 
+    is put inside the class but it cannot access the instance of that class. I created for getting username from the database
+    . One for User form named UserRegistration which has fields name,email_id,qualification,address
+Then i migrate these models into my database which is django default database named sqlite which has a name db.sqlite3
+This migrate creates tables into my database with given fields and id(automatically generated)
+
+After that i created forms.py in my app 
+In forms.py i created AdminForm for creating form for admin login,UserForm for adding user details ,
+UpdateForm for editing the form after submitting,UserSearchForm for search the given user by name or email
+
+Then i come in my views.py where i have create functions and classes which are responsible for taking http request and returns http response
+view functions and classes are executed via a URL which are present in urls.py file
+When a URl is running in the browser it calls the view function or class and that view will be executed and it returns the response which will be displayed in the browser
+The views in my app are:
+    1. Login view which is class based view which defines two methods named get and post
+    get takes the request from the browser and it renders to the template named login.html
+    post takes the request of the username and password and checks for credentials in the database if credentials are valid it renders to home.html with welcome message
+    and credentials are not valid then it renders login.html with showing Invalid credentials
+    2. Logout view which is function based which takes request and clears the session and redirect to login page for admin
+    3.add_user view takes form from form.py and the validate the form using is_valid function and then save form in the database
+    and also fetch email of admin which is used for sending mail after adding submittimg the form
+    if form validation is true it renders to the existing.html which contains all the existing users
+    In user_form i also added total_users and list of 10 users will be seen also
+    if form validation of false it renders to user_form showing fields are required
+    For sending mail to the admin I choose send_mail function which takes subject,message,sender(in my case settings.EMAIL_HOST_USER--which is configured in the settings.py file),reciever(admin---in my case reciepient_list which has an email fetching from database Admin_panel table)
+    4.existing view which is function based contains all the registered user which are fetched from database and also contains UserSearchForm which has two fields email ,name
+    and all users will be filtered using name and email_id values It renders to existing_users
+    5.update_user view which is function based which takes request and id and id will be fetched form database and it returns to the user_form.html then editing will be done and after editing if form is valid then saves the form and redirect to existing_user if not then renders to user_form.html
+    6. delete_user view which take request and id which if fetched from the database then the object of that id will be deleted using delete functionand returns existing_user.html
+
+All view functions or classes have a url map in urls.py
+
+I created templates folder in my app which contains User_management folder which inside contains all the html files whcih are as:
+    1.base.html contains bootstrap and a body for all the html files
+    2. delete.html contains a form which has a two fields input and anchor tag which says yes or cancel if yes clicked the user will be deleted if cancel then returns to existing_users.html
+    3.existing_users.html contains a form for search and table for showing user in the table 
+    4.home.html contains two buttons Add USer and List User if Add user Clicked the page goes to the add_user which contains user_form and if clicked list User then pages go to existing_users.html
+    5.login.html contains two fields Username and password
+    6.user_form.html contains form as a paragraph and also contains recent Users 
+
+The credentials for login into the admin panel which has format as in login.html
+    username = Admin
+    password = Admin@1234
+The admin has a eamil musavirrehman4878@gmail.com
+
+
+
+
+

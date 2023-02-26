@@ -1,0 +1,57 @@
+{% load static %}
+{% include 'User_management/home.html' %}
+<link href="{% static 'User_management/style.css' %}" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" 
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{% static 'invoice/style.css' %}" rel="stylesheet">
+	
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="myform">
+					<center><form method='POST' action=''>
+						{% csrf_token %}
+						{{form.as_p}}
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</div>
+						</div>
+						
+					</form></center>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div>
+				<div>
+					<span class="text-muted">Recent Users</span>
+					<span class="badge badge-secondary badge-pill">{{total_users}}</span>
+				</div>
+				{% for instance in queryset %}
+				<ul class="list-group mb-3">
+					<li class="list-group-item d-flex justify-content-between lh-condensed">
+					<div>
+						<h6 class="my-0">NAME:-{{instance.name}}</h6><br>
+						<small class="text-muted">EMAIL_ID:-{{instance.email_id}}</small><br>
+					</div>
+					<div class="text-muted">Qualification :- {{instance.qualification}}</div>
+					</li>
+				</ul>
+				{% endfor %}
+				</div>
+			</div>
+
+		</div>
+</div>
+
+</body>
+</html>

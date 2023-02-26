@@ -1,0 +1,106 @@
+/* body {
+    background-color: blue;
+} */
+body{
+	background-color: #e7e7e7!important;
+}
+.mybutton {
+    float:right;
+    margin-right: 80px;
+    margin-top: 120px;
+    background-color: aqua;
+}
+.mybutton-list {
+    /* float:right; */
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.mybutton-logout {
+    /* margin-left: 1100px; */
+    text-align: right;
+    /* float:right; */
+    /* margin-left: 1200px; */
+    margin-top: 10px;
+
+} 
+h1 {
+    font-size:22px;
+    color:#341C12;
+    background-color: yellow;
+    font-weight:normal;
+    font-style:italic;
+}
+
+.container span{
+
+    margin-top: 80px;
+}
+.container form{
+	
+    margin-top: 80px;
+}
+.searchForm form{
+	box-shadow: 10px 10px 10px;
+	box-shadow: 12px 12px 12px #2e6da4;
+	border: 1px solid #2e6da4;
+	padding: 50px;
+	padding-bottom: 20px;
+    margin: 30px;
+}
+.mymenu-bar{
+    background-color: #e61c66;
+    color: white;
+    display: inline;
+    padding: 10px;
+    position: fixed;
+    height: 80%;
+    bottom: 70px;
+    left: -80px;
+    z-index: 3000;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.mymenu-bar:hover{
+    left: 0px;
+    -webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+       -o-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+}
+.myForm form{
+	box-shadow: 10px 10px 10px;
+	padding: 50px;
+	padding-bottom: 20px;
+}
+.myclass {
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.myform {
+    margin: 30px;
+}
+.table {
+    font-size: 13px;
+    text-align: center;
+    width: 95%;
+    margin: auto;
+    text-align: center;
+}
+.table tr:nth-child(odd){
+    background-color: #B8CAE4;
+}
+.table te:nth-child(even){
+    background-color: #dae5f4;
+}
+.success {
+    list-style: none;
+    background-color: #2e6da4;
+    color: white;
+    box-shadow: 12px 12px 12px #e61c66;
+    text-align: center;
+}
+

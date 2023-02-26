@@ -1,0 +1,43 @@
+{% extends 'User_management/base.html' %}
+{% block content %}
+
+<div class="conatiner">
+    <div class="p-4 m-4">
+        <div class="col-lg-4 mt-4 mb-4 mx-auto border rounded pt-4">
+            <h3 class="alert alert-light border mt-4 mb-4 rounded ">Login</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                {% if error %}
+
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
+
+
+                <!-- username -->
+                <div class="form-group">
+                    <label for="">UserName</label>
+                    <input type="text" name="username" id="" value="{{data.username}}"
+                    class="form-control form-control-sm"
+                    placeholder="username" 
+                   >
+                </div>
+                <!-- password -->
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" name="password" id=""
+                    class="form-control form-control-sm" 
+                    placeholder="************">
+                </div><br>
+
+
+                <div class="form-group">
+                    <input class="btn btn-sm btn-info col-lg-4" type="submit" value="Login">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
