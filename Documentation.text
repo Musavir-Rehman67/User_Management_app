@@ -27,7 +27,9 @@ The views in my app are:
     if form validation is true it renders to the existing.html which contains all the existing users
     In user_form i also added total_users and list of 10 users will be seen also
     if form validation of false it renders to user_form showing fields are required
-    For sending mail to the admin I choose send_mail function which takes subject,message,sender(in my case settings.EMAIL_HOST_USER--which is configured in the settings.py file),reciever(admin---in my case reciepient_list which has an email fetching from database Admin_panel table)
+    5.For sending mail to the admin I create mail function which will be called in add_user and update_user and in this I
+     choose send_mail function which takes subject,message,sender(in my case settings.EMAIL_HOST_USER--which is configured in the settings.py file),
+     reciever(admin---in my case reciepient_list which has an email fetching from database Admin_panel table)
     4.existing view which is function based contains all the registered user which are fetched from database and also contains UserSearchForm which has two fields email ,name
     and all users will be filtered using name and email_id values It renders to existing_users
     5.update_user view which is function based which takes request and id and id will be fetched form database and it returns to the user_form.html then editing will be done and after editing if form is valid then saves the form and redirect to existing_user if not then renders to user_form.html

@@ -7,9 +7,6 @@ class Admin_panel(models.Model):
     password = models.CharField('Password',max_length=8)
     email = models.EmailField()
 
-    
-
-
     @staticmethod
     def get_Login_byusername(username):
         try:
@@ -32,3 +29,6 @@ class UserRegistration(models.Model):
     email_id  = models.EmailField('EMAIL_ID',default=" ",blank=True,null=True)
     qualification = models.CharField('QUALIFICATION',max_length=10,choices=QUALIFICATION_CHOICES)
     address = models.CharField('ADDRESS',max_length=200)
+
+    def __str__(self):
+        return self.name

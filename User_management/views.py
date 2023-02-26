@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.views import View
 from django.contrib.auth.hashers import check_password
+socket.getaddrinfo('localhost',8000)
 
 class Login(View):
     def get(self,request):
@@ -15,6 +16,9 @@ class Login(View):
         username = request.POST.get('username')
         password = request.POST.get("password")
         user = Admin_panel.get_Login_byusername(username)
+        value = {
+            "username":username
+        }
         context = {
             "username":username,
             "message":"Welcome to Admin Panel"
@@ -27,7 +31,11 @@ class Login(View):
                 error_message = "Invalid credentials"
         else:
             error_message="Invalid credentials"
-        return render(request,"User_management/login.html",{"error":error_message})
+        context = {
+            "error":error_message,
+            "value":value
+        }
+        return render(request,"User_management/login.html",context)
 
 
     
@@ -35,33 +43,34 @@ def logout(request):
     request.session.clear()
     return redirect('/')
 
+def email(request):
+    rec = list(Admin_panel.objects.all().values_list("email",flat=True))
+    user_form = USerForm(request.POST or None)
+    if user_form.is_valid():
+        user = user_form.save(commit=False)
+        
+        subject = f' NEW USER ADDED Named:-{user.name}'
+        body = {
+            "NAME":user.name,
+            "EMAIL_ID":user.email_id,
+            "QUALIFICATION":user.qualification,
+            "ADDRESS":user.address
+        }
+        message = "\n".join(f'{k}:{v}' for k,v in body.items())
+        
+        mailed = send_mail(subject,message,
+                  settings.EMAIL_HOST_USER,
+                  rec,fail_silently=False)
+        return mailed
+
+
 def add_user(request):
-    socket.getaddrinfo('localhost',8000)
-    reciepient_list =list(Admin_panel.objects.all().values_list("email",flat=True))
     form = USerForm(request.POST or None)
     total_users = UserRegistration.objects.count()
     queryset = UserRegistration.objects.order_by('-qualification')[:10]
     if form.is_valid():
-        name = form.cleaned_data['name']
-        email_id = form.cleaned_data['email_id']
-        qualification = form.cleaned_data['qualification']
-        address = form.cleaned_data['address']
-        user = UserRegistration(name=name,
-                                email_id=email_id,
-                                qualification=qualification,
-                                address=address)
-        user.save()
-        subject = f' NEW USER NAMED {user.name} ADDED'
-        body = {
-            "NAME":name,
-            "EMAIL_ID":email_id,
-            "QUALIFICATION":qualification,
-            "ADDRESS":address
-        }
-        message = "\n".join(f'{k}:{v}' for k,v in body.items())
-        send_mail(subject,message,
-                  settings.EMAIL_HOST_USER,
-                  reciepient_list,fail_silently=False)
+        form.save()
+        email(request)
         return redirect('/existing_user')
     context = {
         "form":form,
@@ -92,32 +101,13 @@ def existing_user(request):
     return render(request,'User_management/existing_users.html',context)
 
 def update_user(request,pk):
-    reciepient_list =list(Admin_panel.objects.all().values_list("email",flat=True))
     queryset = UserRegistration.objects.get(id=pk)
     form = UpdateForm(instance=queryset)
     if request.method == "POST":
         form = UpdateForm(request.POST,instance=queryset)
         if form.is_valid():
-            name = form.cleaned_data['name']
-            email_id = form.cleaned_data['email_id']
-            qualification = form.cleaned_data['qualification']
-            address = form.cleaned_data['address']
-            user = UserRegistration(name=name,
-                                email_id=email_id,
-                                qualification=qualification,
-                                address=address)
             form.save()
-            subject = f'DETAILS UPDATED FOR {user.name}'
-        body = {
-            "NAME":name,
-            "EMAIL_ID":email_id,
-            "QUALIFICATION":qualification,
-            "ADDRESS":address
-        }
-        message = "\n".join(f'{k}:{v}' for k,v in body.items())
-        send_mail(subject,message,
-                  settings.EMAIL_HOST_USER,
-                  reciepient_list,fail_silently=False)
+            email(request)
         return redirect('/existing_user')
         
     context = {
